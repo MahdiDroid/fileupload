@@ -11,7 +11,7 @@ public class StorageProperties {
     /**
      * Folder location for storing files
      */
-    private String location = "/home/mehdi/JavaUploadTest";
+    private String location = "/home";
 
     public String getLocation() {
         return location;

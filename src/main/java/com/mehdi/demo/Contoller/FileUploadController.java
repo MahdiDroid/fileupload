@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-//@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 //@RestController
 //public class fileController {
 @Controller
@@ -30,14 +30,18 @@ public class FileUploadController {
     }
 
     @GetMapping("/")
+    public String test() {
+
+        return "test";
+    }
+    @GetMapping("/test")
     public String listUploadedFiles(Model model) throws IOException {
 
         model.addAttribute("files", storageService.loadAll().map(
                 path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                         "serveFile", path.getFileName().toString()).build().toUri().toString())
                 .collect(Collectors.toList()));
-
-        return "uploadForm";
+        return "upfile";
     }
 
     @GetMapping("/files/{filename:.+}")
@@ -57,7 +61,7 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        return "redirect:/";
+        return "redirect:/test";
     }
 
 }
